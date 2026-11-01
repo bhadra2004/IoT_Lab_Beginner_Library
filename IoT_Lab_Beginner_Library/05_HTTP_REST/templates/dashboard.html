@@ -1,0 +1,3 @@
+<!doctype html><title>Sensor Dashboard</title><h1>Recent sensor readings</h1>
+<table border="1"><tr><th>Temperature (C)</th><th>Humidity (%)</th></tr>
+{% for item in readings %}<tr><td>{{ item.temperature }}</td><td>{{ item.humidity }}</td></tr>{% endfor %}</table>

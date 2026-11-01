@@ -1,0 +1,8 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Smart Traffic</title><style>body{font:18px Arial;margin:30px}button,select{margin:8px;padding:8px}.green{color:green;font-weight:bold}</style></head><body><h1>Smart Traffic Signal</h1><p>Choose density and press Start. Emergency gives Road A priority.</p><div id="controls"></div><button onclick="start()">Start next cycle</button><button onclick="emergency()">Emergency: Road A</button><h2 id="status">Ready</h2><script>
+const roads=['A','B','C','D'];let next=0, timer=null;
+const controls=document.getElementById('controls');
+roads.forEach(r=>controls.innerHTML+=`<label>Road ${r}: <select id="road${r}"><option>Low</option><option>Medium</option><option>High</option></select></label>`);
+function show(r,seconds){clearInterval(timer);let left=seconds;document.getElementById('status').textContent=`Road ${r} GREEN: ${left}s (others RED)`;timer=setInterval(()=>{left--;document.getElementById('status').textContent=`Road ${r} GREEN: ${left}s (others RED)`;if(left<=0){clearInterval(timer);document.getElementById('status').textContent=`Road ${r} complete. Click Start for next road.`}},1000)}
+function start(){let r=roads[next];next=(next+1)%4;let density=document.getElementById('road'+r).value;show(r,{Low:6,Medium:9,High:12}[density])}
+function emergency(){show('A',12)}
+</script></body></html>
